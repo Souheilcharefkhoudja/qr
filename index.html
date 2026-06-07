@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Amer — Nutsa Sales Representative</title>
+  <title>Amer — Commerciale Nutsa</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet" />
@@ -377,7 +377,7 @@
     </div>
 
     <!-- Title -->
-    <div class="title">Sales Representative</div>
+    <div class="title">Commerciale</div>
 
     <!-- Contact items -->
     <div class="contacts">
@@ -390,19 +390,19 @@
           <span class="contact-value">+56 29 45 560</span>
         </span>
       </a>
-      <a href="mailto:Amer89@gmail.com" class="contact-item">
+      <a href="mailto:meamer89@gmail.com" class="contact-item">
         <span class="contact-icon">
           <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         </span>
         <span class="contact-meta">
           <span class="contact-label">Email</span>
-          <span class="contact-value">Amer89@gmail.com</span>
+          <span class="contact-value">meamer89@gmail.com</span>
         </span>
       </a>
     </div>
 
     <!-- CTA -->
-    <a href="mailto:Amer89@gmail.com" class="cta">
+    <a href="mailto:meamer89@gmail.com" class="cta">
       Contactez-moi
       <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
     </a>
@@ -419,27 +419,21 @@
 
   </div>
 
-  <p class="footer">© 2025 Nutsa · nutsa-dz.com</p>
+  <p class="footer">© 2026 Nutsa · nutsa-dz.com</p>
 </div>
 
 <script>
-  // QR code points to a vCard / contact page with email + phone
-  // We encode a small data URI contact page as the QR URL.
-  // Instead, we'll create an inline contact page URL using a data: URI embedded in the QR.
-  // Better: link to a dedicated contact anchor on the same page.
-
-  // Build a mailto+tel combined link — we use a small encoded HTML contact page
-  // so scanning the QR immediately shows both contact methods clearly.
+  // Données vCard — scannez pour enregistrer le contact directement
   const contactData = `BEGIN:VCARD
 VERSION:3.0
 FN:Amer
 ORG:Nutsa
 TEL;TYPE=CELL:+562945560
-EMAIL:Amer89@gmail.com
+EMAIL:meamer89@gmail.com
 URL:https://nutsa-dz.com
 END:VCARD`;
 
-  // Generate QR code with vCard data (scannable by any phone → adds to contacts)
+  // Génère le QR code avec les données vCard (scannez → enregistrer le contact)
   new QRCode(document.getElementById("qrcode"), {
     text: contactData,
     width: 180,

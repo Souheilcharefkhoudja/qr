@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meamer — Nutsa Sales Representative</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  <!-- QR Code library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --white: #faf8f5;
+      --rose: #c8a08a;
+      --rose-light: #e8cfc0;
+      --rose-dark: #a07858;
+      --gold: #c9a84c;
+      --text-muted: #888;
+      --border: rgba(200,160,138,0.25);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      min-height: 100vh;
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* Subtle background texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 20%, rgba(200,160,138,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(201,168,76,0.04) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      width: 100%;
+      max-width: 520px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 56px 48px 48px;
+      position: relative;
+      animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 48px; right: 48px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--rose), transparent);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── BRAND BAR ── */
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 40px;
+      animation: fadeUp 0.9s 0.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .brand-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--rose);
+    }
+
+    .brand-name {
+      font-family: 'Jost', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--rose);
+    }
+
+    .brand-link {
+      margin-left: auto;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--text-muted);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .brand-link:hover { color: var(--rose-light); }
+
+    /* ── NAME ── */
+    .name-block {
+      margin-bottom: 8px;
+      animation: fadeUp 0.9s 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .greeting {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(42px, 8vw, 64px);
+      font-weight: 300;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      color: var(--white);
+    }
+
+    .name em {
+      font-style: italic;
+      color: var(--rose-light);
+    }
+
+    /* ── TITLE ── */
+    .title {
+      font-size: 10.5px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 18px;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: fadeUp 0.9s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── CONTACT LINKS ── */
+    .contacts {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 44px;
+      animation: fadeUp 0.9s 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      text-decoration: none;
+      color: var(--white);
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-item::before {
+      content: '';
+      position: absolute;
+      left: -100%;
+      top: 0; bottom: 0;
+      width: 100%;
+      background: linear-gradient(90deg, rgba(200,160,138,0.06), transparent);
+      transition: left 0.35s ease;
+    }
+
+    .contact-item:hover::before { left: 0; }
+    .contact-item:hover .contact-icon { border-color: var(--rose); color: var(--rose); }
+    .contact-item:hover .contact-value { color: var(--rose-light); }
+    .contact-item:first-child { border-top: 1px solid rgba(255,255,255,0.05); }
+
+    .contact-icon {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.25s;
+    }
+
+    .contact-icon svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .contact-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .contact-label {
+      font-size: 9.5px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .contact-value {
+      font-size: 15px;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      transition: color 0.25s;
+    }
+
+    /* ── CTA BUTTON ── */
+    .cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px 24px;
+      background: transparent;
+      border: 1px solid var(--rose);
+      color: var(--rose);
+      font-family: 'Jost', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 1px;
+      margin-bottom: 44px;
+      animation: fadeUp 0.9s 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .cta:hover {
+      background: var(--rose);
+      color: var(--black);
+    }
+
+    .cta svg {
+      width: 14px; height: 14px;
+      fill: none; stroke: currentColor;
+      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+      transition: transform 0.3s;
+    }
+    .cta:hover svg { transform: translateX(3px); }
+
+    /* ── DIVIDER ── */
+    .section-label {
+      font-size: 9px;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 24px;
+      animation: fadeUp 0.9s 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    /* ── QR CODE ── */
+    .qr-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      animation: fadeUp 0.9s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .qr-frame {
+      padding: 16px;
+      background: var(--white);
+      border-radius: 2px;
+      position: relative;
+    }
+
+    /* Corner decorations on QR frame */
+    .qr-frame::before,
+    .qr-frame::after {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-color: var(--rose);
+      border-style: solid;
+    }
+    .qr-frame::before {
+      top: -4px; left: -4px;
+      border-width: 2px 0 0 2px;
+    }
+    .qr-frame::after {
+      bottom: -4px; right: -4px;
+      border-width: 0 2px 2px 0;
+    }
+
+    #qrcode canvas, #qrcode img {
+      display: block;
+    }
+
+    .qr-hint {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 48px;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.2);
+      text-align: center;
+      animation: fadeUp 0.9s 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 540px) {
+      .card { padding: 44px 28px 36px; }
+      .name { font-size: 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <div class="card">
+
+    <!-- Brand bar -->
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <span class="brand-name">Nutsa</span>
+      <a href="https://nutsa-dz.com" target="_blank" class="brand-link">nutsa-dz.com ↗</a>
+    </div>
+
+    <!-- Name -->
+    <div class="name-block">
+      <p class="greeting">Bonjour, je suis</p>
+      <h1 class="name"><em>Meamer</em></h1>
+    </div>
+
+    <!-- Title -->
+    <div class="title">Sales Representative</div>
+
+    <!-- Contact items -->
+    <div class="contacts">
+      <a href="tel:+562945560" class="contact-item">
+        <span class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 011 2.18 2 2 0 012.96 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </span>
+        <span class="contact-meta">
+          <span class="contact-label">Téléphone</span>
+          <span class="contact-value">+56 29 45 560</span>
+        </span>
+      </a>
+      <a href="mailto:meamer89@gmail.com" class="contact-item">
+        <span class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </span>
+        <span class="contact-meta">
+          <span class="contact-label">Email</span>
+          <span class="contact-value">meamer89@gmail.com</span>
+        </span>
+      </a>
+    </div>
+
+    <!-- CTA -->
+    <a href="mailto:meamer89@gmail.com" class="cta">
+      Contactez-moi
+      <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+    </a>
+
+    <!-- QR section -->
+    <p class="section-label">Scannez pour me contacter</p>
+
+    <div class="qr-wrapper">
+      <div class="qr-frame">
+        <div id="qrcode"></div>
+      </div>
+      <p class="qr-hint">Accès rapide · Email &amp; Téléphone</p>
+    </div>
+
+  </div>
+
+  <p class="footer">© 2025 Nutsa · nutsa-dz.com</p>
+</div>
+
+<script>
+  // QR code points to a vCard / contact page with email + phone
+  // We encode a small data URI contact page as the QR URL.
+  // Instead, we'll create an inline contact page URL using a data: URI embedded in the QR.
+  // Better: link to a dedicated contact anchor on the same page.
+
+  // Build a mailto+tel combined link — we use a small encoded HTML contact page
+  // so scanning the QR immediately shows both contact methods clearly.
+  const contactData = `BEGIN:VCARD
+VERSION:3.0
+FN:Meamer
+ORG:Nutsa
+TEL;TYPE=CELL:+562945560
+EMAIL:meamer89@gmail.com
+URL:https://nutsa-dz.com
+END:VCARD`;
+
+  // Generate QR code with vCard data (scannable by any phone → adds to contacts)
+  new QRCode(document.getElementById("qrcode"), {
+    text: contactData,
+    width: 180,
+    height: 180,
+    colorDark: "#0a0a0a",
+    colorLight: "#faf8f5",
+    correctLevel: QRCode.CorrectLevel.M
+  });
+</script>
+
+</body>
+</html>
